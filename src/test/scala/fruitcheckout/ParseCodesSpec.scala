@@ -17,7 +17,7 @@ class ParseCodesSpec extends FunSpec with Matchers {
     }
 
     it("should aggregate a repeat item and subtotal") {
-      ParseCodes(List("apple", "apple")) should === (List(ReceiptLine(Produce.apple, 2, BigDecimal("1.20"))))
+      ParseCodes(List("apple", "apple")) should === (List(ReceiptLine(Produce.apple, 2)))
     }
 
     it("should aggregate multiple repeat items and subtotal") {
@@ -29,8 +29,8 @@ class ParseCodesSpec extends FunSpec with Matchers {
         "apple")
 
       val expected = List(
-        ReceiptLine(Produce.orange, 2, BigDecimal("0.50")),
-        ReceiptLine(Produce.apple, 3, BigDecimal("1.80"))
+        ReceiptLine(Produce.orange, 2),
+        ReceiptLine(Produce.apple, 3)
       )
       ParseCodes(input) should contain theSameElementsAs (expected)
     }
@@ -49,8 +49,8 @@ class ParseCodesSpec extends FunSpec with Matchers {
       )
 
       val expected = List(
-        ReceiptLine(Produce.orange, 2, BigDecimal("0.50")),
-        ReceiptLine(Produce.apple, 3, BigDecimal("1.80"))
+        ReceiptLine(Produce.orange, 2),
+        ReceiptLine(Produce.apple, 3)
       )
       ParseCodes(input) should contain theSameElementsAs (expected)
     }

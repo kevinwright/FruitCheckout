@@ -1,8 +1,9 @@
 package fruitcheckout
 
 object Checkout extends (List[String] => BigDecimal){
-  override def apply(codes: List[String]): BigDecimal = {
-    val receipt = ParseCodes(codes)
-    receipt.map(_.cost).sum
-  }
+  def calcReceipt(codes: List[String]): List[ReceiptLine] =
+    SpecialOffers.applyAll(ParseCodes(codes))
+
+  override def apply(codes: List[String]): BigDecimal =
+    calcReceipt(codes).map(_.cost).sum
 }

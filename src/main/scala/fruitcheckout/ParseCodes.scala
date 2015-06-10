@@ -7,8 +7,6 @@ object ParseCodes extends (List[String] => List[ReceiptLine]) {
       p <- SingleCodeLookup(code)
     } yield p
     val histogram = products.groupBy(identity).mapValues(_.length)
-    histogram.map{
-      case(p,qty) => ReceiptLine(p, qty, p.cost*qty)
-    }(collection.breakOut)
+    histogram.map{ ReceiptLine.tupled }(collection.breakOut)
   }
 }
